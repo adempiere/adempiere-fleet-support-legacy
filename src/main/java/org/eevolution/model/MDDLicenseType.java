@@ -26,7 +26,7 @@ import java.util.Properties;
  * Domain Model for License Type
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDLicenseType extends X_DD_LicenseType {
+public class MDDLicenseType extends org.eevolution.distribution.model.MDDLicenseType {
     /**
      * License Type
      * @param ctx

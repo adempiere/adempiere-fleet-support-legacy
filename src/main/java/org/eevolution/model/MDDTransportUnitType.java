@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Transport Unit Type
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDTransportUnitType extends X_DD_TransportUnitType{
+public class MDDTransportUnitType extends org.eevolution.distribution.model.MDDTransportUnitType {
 
     /**
      * Constructor Transport Unit Type

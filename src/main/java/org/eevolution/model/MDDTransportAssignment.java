@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Transport Assignment
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDTransportAssignment extends X_DD_TransportAssignment {
+public class MDDTransportAssignment extends org.eevolution.distribution.model.MDDTransportUnit {
 
     /**
      * Constructor Transport Assignment

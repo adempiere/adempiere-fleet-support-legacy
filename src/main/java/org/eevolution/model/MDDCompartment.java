@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Compartment
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDCompartment extends X_DD_Compartment {
+public class MDDCompartment extends org.eevolution.distribution.model.MDDCompartment {
 
     /**
      * Constructor Compartment

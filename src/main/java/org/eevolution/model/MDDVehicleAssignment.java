@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Vehicle Assignment
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDVehicleAssignment extends X_DD_VehicleAssignment {
+public class MDDVehicleAssignment extends org.eevolution.distribution.model.MDDVehicleAssignment {
 
 
     /**

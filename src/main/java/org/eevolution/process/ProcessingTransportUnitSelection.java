@@ -18,12 +18,6 @@
 
 package org.eevolution.process;
 
-import org.compiere.model.PO;
-import org.eevolution.model.MDDTransportUnit;
-
-import java.util.List;
-import java.util.Optional;
-
 /**
  * Process for (Transport Unit Selection)
  * This process allows to Transport Unit update values
@@ -32,55 +26,6 @@ import java.util.Optional;
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  * @version Release 3.9.0
  */
-public class ProcessingTransportUnitSelection extends ProcessingTransportUnitSelectionAbstract {
-    @Override
-    protected void prepare() {
-        super.prepare();
-    }
-
-    @Override
-    protected String doIt() throws Exception {
-        List<MDDTransportUnit> transportUnits = (List<MDDTransportUnit>) getInstancesForSelection(get_TrxName());
-        if (getRecord_ID() > 0 && getSelectionKeys().size() > 0 && getTableSelectionId() == MDDTransportUnit.Table_ID) {
-            if (getProcessInfo().getTable_ID() == MDDTransportUnit.Table_ID) {
-                MDDTransportUnit transportUnitFrom = transportUnits.stream().findFirst().get();
-                MDDTransportUnit transportUnitTo = (MDDTransportUnit) getInstance(get_TrxName());
-                if (transportUnitFrom != null && transportUnitTo != null && transportUnitFrom.get_ID() != transportUnitTo.get_ID())
-                    CopyTransportUnit(transportUnitFrom, transportUnitTo);
-            }
-        } else if (getRecord_ID() == 0 && getSelectionKeys().size() > 0) {
-            UpdatingTransportUnit(transportUnits);
-        }
-        return "@Ok@";
-    }
-
-    /**
-     * Update Values for Transport Unit
-     *
-     * @param transportUnits
-     */
-    private void UpdatingTransportUnit(List<MDDTransportUnit> transportUnits) {
-        transportUnits.stream()
-                .filter(transportUnit -> transportUnit != null)
-                .forEach(transportUnit -> {
-                    int columns = transportUnit.get_ColumnCount();
-                    for (int index = 0; index < columns; index++) {
-                        String columnName = transportUnit.get_ColumnName(index);
-                        Optional.ofNullable(getSelection(transportUnit.get_ID(), getPrefixAliasForTableSelection() + columnName))
-                                .ifPresent(value -> transportUnit.set_ValueOfColumn(columnName, value));
-                    }
-                    transportUnit.saveEx();
-                });
-    }
-
-    /**
-     * Copy Transport Unit
-     *
-     * @param transportUnitFrom
-     * @param transportUnitTo
-     */
-    protected void CopyTransportUnit(MDDTransportUnit transportUnitFrom, MDDTransportUnit transportUnitTo) {
-        PO.copyValues(transportUnitFrom, transportUnitTo);
-        transportUnitTo.saveEx();
-    }
+public class ProcessingTransportUnitSelection extends org.eevolution.distribution.process.ProcessingTransportUnitSelection {
+    
 }

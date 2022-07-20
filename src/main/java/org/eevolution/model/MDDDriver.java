@@ -19,14 +19,13 @@
 package org.eevolution.model;
 
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 /**
  * Domain Model for Driver
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDDriver extends X_DD_Driver {
+public class MDDDriver extends org.eevolution.distribution.model.MDDDriver {
 
     /**
      * Constructor Driver
@@ -47,23 +46,4 @@ public class MDDDriver extends X_DD_Driver {
     public MDDDriver(Properties ctx, ResultSet rs, String trxName) {
         super(ctx, rs, trxName);
     }
-
-    /**
-     * get Requirement Assignments
-     * @return List of Requirement Assignment
-     */
-    public List<MDDRequirementAssignment> getRequirementAssignments()
-    {
-        return MDDRequirementAssignment.getByDriver(this);
-    }
-
-    /**
-     * get License Assignment
-     * @return List of License Assignment
-     */
-    public List<MDDLicenseAssignment> getLicenseAssignments()
-    {
-        return MDDLicenseAssignment.getByDriver(this);
-    }
-
 }

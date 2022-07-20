@@ -18,46 +18,15 @@
 
 package org.eevolution.model;
 
-import org.compiere.model.Query;
-
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 /**
  * Domain Model for License Assignment
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDLicenseAssignment extends X_DD_LicenseAssignment {
-
-    /**
-     * Get License Assignment by Driver
-     * @param driver
-     * @return  License Assignment List
-     */
-    public static List<MDDLicenseAssignment> getByDriver(MDDDriver driver)
-    {
-        return new Query(driver.getCtx(), Table_Name , COLUMNNAME_DD_Driver_ID +  "=?", driver.get_TrxName())
-                .setClient_ID()
-                .setParameters(driver.getDD_Driver_ID())
-                .setOrderBy(MDDLicenseAssignment.COLUMNNAME_SeqNo)
-                .list();
-    }
-
-    /**
-     * get License Assignment by Vehicle
-     * @param vehicle
-     * @return License Assignment List
-     */
-    public static List<MDDLicenseAssignment> getByVehicle(MDDVehicle vehicle)
-    {
-        return new Query(vehicle.getCtx(), Table_Name , COLUMNNAME_DD_Vehicle_ID +  "=?", vehicle.get_TrxName())
-                .setClient_ID()
-                .setParameters(vehicle.getDD_Vehicle_ID())
-                .setOrderBy(MDDLicenseAssignment.COLUMNNAME_SeqNo)
-                .list();
-    }
-
+public class MDDLicenseAssignment extends org.eevolution.distribution.model.MDDLicenseAssignment {
+	
     /**
      * Constructor License Assignment
      * @param ctx
@@ -76,29 +45,5 @@ public class MDDLicenseAssignment extends X_DD_LicenseAssignment {
      */
     public MDDLicenseAssignment(Properties ctx, ResultSet rs, String trxName) {
         super(ctx, rs, trxName);
-    }
-
-    /**
-     * License Assignment
-     * @param driver
-     * @param licenseId
-     */
-    public MDDLicenseAssignment(MDDDriver driver , int licenseId)
-    {
-        super(driver.getCtx() , 0 , driver.get_TrxName());
-        setDD_License_ID(licenseId);
-        setDD_Driver_ID(driver.get_ID());
-    }
-
-    /**
-     * License Assignment
-     * @param vehicle
-     * @param licenseId
-     */
-    public MDDLicenseAssignment(MDDVehicle vehicle , int licenseId)
-    {
-        super(vehicle.getCtx() , 0 , vehicle.get_TrxName());
-        setDD_License_ID(licenseId);
-        setDD_Driver_ID(vehicle.get_ID());
     }
 }

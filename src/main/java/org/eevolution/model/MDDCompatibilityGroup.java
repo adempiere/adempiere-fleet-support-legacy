@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Compatibility Group
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDCompatibilityGroup extends X_DD_CompatibilityGroup {
+public class MDDCompatibilityGroup extends org.eevolution.distribution.model.MDDCompatibilityGroup {
 
     /**
      * Constructor Compatibility Group

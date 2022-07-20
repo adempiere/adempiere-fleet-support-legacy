@@ -18,73 +18,12 @@
 
 package org.eevolution.process;
 
-import org.compiere.model.PO;
-import org.eevolution.model.MDDDriver;
-import org.eevolution.model.MDDLicenseAssignment;
-import org.eevolution.model.MDDRequirementAssignment;
-
-import java.util.List;
-import java.util.Optional;
-
 /** Process for (Driver Selection)
  *  This process allows copy a Driver to other Driver
  *  Update the Driver values from Smart Browser
  *  @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  *  @version Release 3.9.0
  */
-public class ProcessingDriverSelection extends ProcessingDriverSelectionAbstract
-{
-	@Override
-	protected void prepare()
-	{
-		super.prepare();
-	}
-
-	@Override
-	protected String doIt() throws Exception
-	{
-		List<MDDDriver> drivers = (List<MDDDriver>) getInstancesForSelection(get_TrxName());
-		if (getRecord_ID() > 0 && getSelectionKeys().size() > 0 && getTableSelectionId() == MDDDriver.Table_ID) {
-			if (getProcessInfo().getTable_ID() == MDDDriver.Table_ID) {
-				MDDDriver driverFrom = drivers.stream().findFirst().get();
-				MDDDriver driverTo = (MDDDriver) getInstance(get_TrxName());
-				if (driverFrom != null && driverTo != null && driverFrom.get_ID() != driverTo.get_ID())
-					CopyDriver(driverFrom, driverTo);
-			}
-		}
-		else if (getRecord_ID() == 0 && getSelectionKeys().size() > 0) {
-			UpdatingDriver(drivers);
-		}
-
-		return "@Ok@";
-	}
-
-	private void UpdatingDriver(List<MDDDriver> drivers) {
-		drivers.stream()
-				.filter(driver -> driver != null)
-				.forEach(driver -> {
-					int columns = driver.get_ColumnCount();
-					for (int index = 0; index < columns; index++) {
-						String columnName = driver.get_ColumnName(index);
-						Optional.ofNullable(getSelection(driver.get_ID(), getPrefixAliasForTableSelection() + columnName))
-								.ifPresent(value -> driver.set_ValueOfColumn(columnName, value));
-					}
-					driver.saveEx();
-				});
-	}
-
-	protected void CopyDriver(MDDDriver driverFrom, MDDDriver driverTo)
-	{
-		PO.copyValues(driverFrom, driverTo);
-		driverFrom.getLicenseAssignments().forEach(licenseAssignment -> {
-			MDDLicenseAssignment licenseAssignmentTo = new MDDLicenseAssignment(driverTo, licenseAssignment.getDD_License_ID());
-			licenseAssignmentTo.saveEx();
-		});
-
-		driverFrom.getRequirementAssignments().forEach(requirementAssignment -> {
-			MDDRequirementAssignment requirementAssignmentTo = new MDDRequirementAssignment(driverTo, requirementAssignment.getDD_Requirement_ID());
-			requirementAssignmentTo.saveEx();
-		});
-		driverTo.saveEx();
-	}
+public class ProcessingDriverSelection extends org.eevolution.distribution.process.ProcessingDriverSelection {
+	
 }

@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Requirement
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDRequirement extends X_DD_Requirement {
+public class MDDRequirement extends org.eevolution.distribution.model.MDDRequirement {
 
     /**
      * Contructor Requirement

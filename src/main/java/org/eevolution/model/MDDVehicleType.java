@@ -25,7 +25,7 @@ import java.util.Properties;
  * Domain Model for Vehicle Type
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDVehicleType extends X_DD_VehicleType {
+public class MDDVehicleType extends org.eevolution.distribution.model.MDDVehicleType {
 
     /**
      * Constructor Vehicle Type

@@ -18,14 +18,6 @@
 
 package org.eevolution.process;
 
-import org.compiere.model.PO;
-import org.eevolution.model.MDDLicenseAssignment;
-import org.eevolution.model.MDDRequirementAssignment;
-import org.eevolution.model.MDDVehicle;
-
-import java.util.List;
-import java.util.Optional;
-
 /**
  * Process for (Vehicle Selection)
  * This process allows to Update
@@ -34,65 +26,6 @@ import java.util.Optional;
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  * @version Release 3.9.0
  */
-public class ProcessingVehicleSelection extends ProcessingVehicleSelectionAbstract {
-    @Override
-    protected void prepare() {
-        super.prepare();
-    }
-
-    @Override
-    protected String doIt() throws Exception {
-        List<MDDVehicle> vehicles = (List<MDDVehicle>) getInstancesForSelection(get_TrxName());
-        if (getRecord_ID() > 0 && getSelectionKeys().size() > 0 && getTableSelectionId() == MDDVehicle.Table_ID) {
-            if (getProcessInfo().getTable_ID() == MDDVehicle.Table_ID) {
-                MDDVehicle vehicleFrom = vehicles.stream().findFirst().get();
-                MDDVehicle vehicleTo = (MDDVehicle) getInstance(get_TrxName());
-                if (vehicleFrom != null && vehicleTo != null && vehicleFrom.get_ID() != vehicleTo.get_ID())
-                    CopyVehicle(vehicleFrom, vehicleTo);
-            }
-        } else if (getRecord_ID() == 0 && getSelectionKeys().size() > 0) {
-            UpdatingVehicle(vehicles);
-        }
-        return "@Ok@";
-    }
-
-    /**
-     * Updating Vehicle
-     *
-     * @param vehicles
-     */
-    private void UpdatingVehicle(List<MDDVehicle> vehicles) {
-        vehicles.stream()
-                .filter(vehicle -> vehicle != null)
-                .forEach(vehicle -> {
-                    int columns = vehicle.get_ColumnCount();
-                    for (int index = 0; index < columns; index++) {
-                        String columnName = vehicle.get_ColumnName(index);
-                        Optional.ofNullable(getSelection(vehicle.get_ID(), getPrefixAliasForTableSelection() + columnName))
-                                .ifPresent(value -> vehicle.set_ValueOfColumn(columnName, value));
-                    }
-                    vehicle.saveEx();
-                });
-    }
-
-    /**
-     * Copy Vehicle
-     *
-     * @param vehicleFrom
-     * @param vehicleTo
-     */
-    private void CopyVehicle(MDDVehicle vehicleFrom, MDDVehicle vehicleTo) {
-
-        PO.copyValues(vehicleFrom, vehicleTo);
-        vehicleFrom.getLicenseAssignments().forEach(licenseAssignment -> {
-            MDDLicenseAssignment licenseAssignmentTo = new MDDLicenseAssignment(vehicleFrom, licenseAssignment.getDD_License_ID());
-            licenseAssignmentTo.saveEx();
-        });
-
-        vehicleFrom.getRequirementAssignments().forEach(requirementAssignment -> {
-            MDDRequirementAssignment requirementAssignmentTo = new MDDRequirementAssignment(vehicleFrom, requirementAssignment.getDD_Requirement_ID());
-            requirementAssignmentTo.saveEx();
-        });
-        vehicleTo.saveEx();
-    }
+public class ProcessingVehicleSelection extends org.eevolution.distribution.process.ProcessingVehicleSelection {
+    
 }

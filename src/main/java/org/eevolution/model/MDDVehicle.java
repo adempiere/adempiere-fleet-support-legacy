@@ -19,14 +19,13 @@
 package org.eevolution.model;
 
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 /**
  * Domain Model for Vehicle
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDVehicle extends X_DD_Vehicle {
+public class MDDVehicle extends org.eevolution.distribution.model.MDDVehicle {
 
 
     /**
@@ -47,23 +46,5 @@ public class MDDVehicle extends X_DD_Vehicle {
      */
     public MDDVehicle(Properties ctx, ResultSet rs, String trxName) {
         super(ctx, rs, trxName);
-    }
-
-    /**
-     * get Requirement Assignment
-     * @return
-     */
-    public List<MDDRequirementAssignment> getRequirementAssignments()
-    {
-        return MDDRequirementAssignment.getByVehicle(this);
-    }
-
-    /**
-     * get License Assignment
-     * @return License Assignment List
-     */
-    public List<MDDLicenseAssignment> getLicenseAssignments()
-    {
-        return MDDLicenseAssignment.getByVehicle(this);
     }
 }

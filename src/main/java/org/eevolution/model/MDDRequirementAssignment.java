@@ -18,10 +18,7 @@
 
 package org.eevolution.model;
 
-import org.compiere.model.Query;
-
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 
@@ -29,35 +26,7 @@ import java.util.Properties;
  * Domain Model for Requirement Assignment
  * @author victor.perez@e-evolution.com, http://www.e-evolution.com , http://github.com/e-Evolution
  */
-public class MDDRequirementAssignment extends X_DD_RequirementAssignment {
-
-    /**
-     * get Requirement Assignment
-     * @param driver
-     * @return
-     */
-    static public List<MDDRequirementAssignment> getByDriver(MDDDriver driver)
-    {
-        return new Query(driver.getCtx(), Table_Name , COLUMNNAME_DD_Driver_ID +  "=?", driver.get_TableName())
-                .setClient_ID()
-                .setParameters(driver.getDD_Driver_ID())
-                .setOrderBy(MDDRequirementAssignment.COLUMNNAME_SeqNo)
-                .list();
-    }
-
-    /**
-     * get Requirement Assignment
-     * @param vehicle
-     * @return
-     */
-    static public List<MDDRequirementAssignment> getByVehicle(MDDVehicle vehicle)
-    {
-        return new Query(vehicle.getCtx(), Table_Name , COLUMNNAME_DD_Vehicle_ID +  "=?", vehicle.get_TableName())
-                .setClient_ID()
-                .setParameters(vehicle.getDD_Vehicle_ID())
-                .setOrderBy(MDDRequirementAssignment.COLUMNNAME_SeqNo)
-                .list();
-    }
+public class MDDRequirementAssignment extends org.eevolution.distribution.model.MDDRequirementAssignment {
 
     /**
      * Constructor Requirement Assignment
@@ -77,31 +46,5 @@ public class MDDRequirementAssignment extends X_DD_RequirementAssignment {
      */
     public MDDRequirementAssignment(Properties ctx, ResultSet rs, String trxName) {
         super(ctx, rs, trxName);
-    }
-
-    /**
-     * Constructor Requirement Assignment
-     * @param driver
-     * @param requirementId
-     */
-    public MDDRequirementAssignment(MDDDriver driver,  int requirementId)
-    {
-        super(driver.getCtx() , 0 , driver.get_TrxName());
-        setDD_Requirement_ID(requirementId);
-        setDD_Driver_ID(driver.get_ID());
-        setIsValid(false);
-    }
-
-    /**
-     * Constructor Requirement Assignment
-     * @param vehicle
-     * @param requirementId
-     */
-    public MDDRequirementAssignment(MDDVehicle vehicle , int requirementId)
-    {
-        super(vehicle.getCtx() , 0 , vehicle.get_TrxName());
-        setDD_Requirement_ID(requirementId);
-        setDD_Vehicle_ID(vehicle.get_ID());
-        setIsValid(false);
     }
 }
